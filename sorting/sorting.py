@@ -85,6 +85,27 @@ def insertion_sort(arr):
     return arr
 
 
+def shell_sort(arr):
+    length = len(arr)
+
+    interval_size = length // 2
+
+    while interval_size > 0:
+
+        for index in range(1, length - interval_size):
+
+            if arr[index] > arr[index + interval_size]:
+                swap(arr, index, index + interval_size)
+
+                while arr[index] < arr[index - interval_size] and index > 0:
+                    swap(arr, index, index - interval_size)
+                    index -= 1
+
+        interval_size //= 2
+
+    return arr
+
+
 if __name__ == '__main__':
     a = [5, 8, 6, 4, 0, 9, 1]
 
@@ -101,4 +122,6 @@ if __name__ == '__main__':
     #
     # print(selection_sort(a))
 
-    print(insertion_sort(a))
+    # print(insertion_sort(a))
+
+    print(shell_sort(a))
