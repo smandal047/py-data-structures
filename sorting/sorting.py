@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 def bubble_sort(arr):
     """
 
@@ -130,7 +133,6 @@ def two_way_merge(a1, a2):
 
 
 def merge_sort(arr):
-
     if len(arr) > 1:
 
         # divide the array
@@ -148,27 +150,81 @@ def merge_sort(arr):
         return arr
 
 
+# on place sorter for pivot at index 0
+def partition(arr):
+    """     10 5 16 2 16 15
+            10 < 5 => y     10 > 15
+            10 < 16 => n    10 > 16 => y
+            10 < 16 => n    10 > 2 => n
+
+    :param arr:
+    :return:
+    """
+
+    pivot_index = 0
+    low_index = 1
+    low_flag = False
+    high_index = len(arr) - 1
+    high_flag = False
+
+    while low_index <= high_index:
+
+        if arr[low_index] <= arr[pivot_index]:
+            low_index += 1
+        else:
+            low_flag = True
+
+        if arr[high_index] >= arr[pivot_index]:
+            high_index -= 1
+        else:
+            high_flag = True
+
+        if low_flag and high_flag:
+            swap(arr, low_index, high_index)
+            low_flag = False
+            high_flag = False
+
+    swap(arr, pivot_index, high_index)
+
+    return high_index + 1, arr
+
+
+def quick_sort(arr):
+    if len(arr) > 1:
+        sorted_index, temp = partition(arr)
+        a1 = quick_sort(arr[:sorted_index])
+        a2 = quick_sort(arr[sorted_index:])
+
+        return a1 + a2
+    else:
+        return arr
+
+
 if __name__ == '__main__':
     a = [5, 8, 6, 4, 0, 9, 1]
     b = [7, 10, 2, 14, 11, 13, 12]
 
     # import random
-    # a = [random.randint(100, 10000) for i in range(10000)]
+    # a = [random.randint(100, 100000) for i in range(10000)]
 
     print('--=sorted truth=--')
     print(sorted(a))
     print('------------------')
 
-    print(bubble_sort(a))
+    # print(bubble_sort(a))
 
-    print(improved_bubble_sort(a))
+    # print(improved_bubble_sort(a))
 
-    print(selection_sort(a))
+    # print(selection_sort(a))
 
-    print(insertion_sort(a))
+    # print(insertion_sort(a))
 
-    print(shell_sort(a))
+    # print(shell_sort(a))
 
     # print(two_way_merge(sorted(a), sorted(b)))
 
-    print(merge_sort(a))
+    # print(merge_sort(a))
+
+    # print(partition([7, 2]))
+
+    print(quick_sort(b))
