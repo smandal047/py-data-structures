@@ -67,6 +67,9 @@ def selection_sort(arr):
 
 
 def swap(arr, i1, i2):
+    if i1 == i2:
+        return
+
     arr[i1], arr[i2] = arr[i2], arr[i1]
 
 
